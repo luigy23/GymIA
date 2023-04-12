@@ -1,124 +1,170 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import React, { useEffect, useRef, useState } from "react";
+import { completar } from "../Api/openia"
+import Rutina from "../Componentes/Rutina";
+import Spinner from "../Componentes/Spinner";
+
+
+
+const inter = Inter({ subsets: ['latin'] }) 
+//importar est
 
 export default function Home() {
+
+  const cargando = useRef(false);
+  const [texto, setTexto] = useState("");
+  const [mensajes, setMensajes] = useState([
+    {
+      role: "system",
+      content: `te llamas jimbo eres un entrenador personal con 20 años de experiencia, que hace rutinas personalizadas
+      según la información del usuario, siempre harás la preguntas necesarias para poder dar la rutina perfecta para cada usuario. además también eres un nutriólogo, eres breve y conciso en tus respuestas. Tu objetivo es crear una rutina personalizada
+       en base a la información que el usuario te da. Además de usar tus conocimientos para dar consejos y recomendaciones.
+       tienes que buscar lo mejor para el usuario en cuanto a salud y decirle al usuario cuando no está haciendo bien las cosas.
+      `,
+    },
+    {
+      role: "user",
+      content: `Habilidades:
+Crear una rutina: Cuando vayas a crear una rutina personalizada deberás darla en el siguiente formato, sin comentarios o cosas extras solo tendrás que responder con esto: /*JSON{"objetivo":"string","rutina":[{"dia":"string","ejercicios":[{"nombre":"string","series":"number","repeticiones":"string","peso":"string"}]}]} */
+<Comentario Extra>
+Primera indicación:
+actúa como un excelente entrenador personal recuerda siempre hacer la preguntas correctas para tener información y poder generar las mejores rutinas, recuerda que eres breve conciso y carismático, lo primero que harás es saludar:`,
+    },
+    {role: "system", content: "Hola, soy jimbo, tu entrenador personal, ¿cómo te llamas? ¿en que puedo ayudarte? cuentame tus objetivos"},
+  ]);
+  const formulario = useRef(null);
+  const rutinaPlantilla = useRef({
+    objetivo: "string",
+    rutina: [
+      {
+        dia: "string",
+        ejercicios: [
+          {
+            nombre: "string",
+            series: "number",
+            repeticiones: "string",
+            peso: "string",
+          },
+        ],
+      },
+    ],
+  });
+
+  useEffect(() => {
+
+  
+
+  }, [])
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    enviarMensaje();
+    formulario.current.reset();
+  };
+
+  const enviarMensaje = async (textoMsj=texto) => {
+    cargando.current = true;
+    setMensajes((mensajesAnteriores) => [
+      ...mensajesAnteriores,
+      { role: "user", content: textoMsj },
+    ]);
+    const mensajesActualizados = [
+      ...mensajes,
+      { role: "user", content: textoMsj },
+    ];
+    const respuesta = await completar(mensajesActualizados);
+    cargando.current = false;
+    if (respuesta.includes("{")) {
+      console.log("hay json");
+      rutinaPlantilla.current = extraerjson(respuesta);
+    }
+    setMensajes((mensajesAnteriores) => [
+      ...mensajesAnteriores,
+      { role: "system", content: respuesta },
+    ]);
+    console.log("mensajes:", mensajes);
+   setTexto("")
+  };
+
+  const extraerjson = (jsonMensaje) => {
+    const jsonString = jsonMensaje;
+    const jsonObject = JSON.parse(
+      jsonString.substring(
+        jsonString.indexOf("{"),
+        jsonString.lastIndexOf("}") + 1
+      )
+    );
+    console.log(jsonObject);
+    return jsonObject;
+  };
+
+  const generarRutina = async () => {
+    const mensajeGenerar = `generame la rutina`;
+    enviarMensaje(mensajeGenerar);
+
+
+  };
+
+
+
+
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+<>
+    <div className="contenedorPrincipal gap-3 overflow-scroll noScrollBar ">
+      <h1 className="text-white">Fitnow</h1>
+      <div className="bg-black text-white rounded-lg text-center w-full overflow-y-scroll p-10">
+        {mensajes.map((mensaje, index) => {
+          //no mostrar el primer mensaje del sistema, que es la descripción del chatbot
+          if (index < 2) {
+            return null;
+          }
+
+          return (
+            <div key={index} className="flex flex-col gap-2">
+              <div className="flex gap-2 text-left whitespace-pre-wrap">
+                <span className="text-shamrock-500">{mensaje.role}:</span>
+                <span>{mensaje.content}</span>
+              </div>
+            </div>
+          );
+        })}
+        <div className={ cargando.current ? "block" : "hidden"}>
+          <Spinner />
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <form
+      ref={formulario}
+        onSubmit={(e) => handleSubmit(e)}
+        className="flex gap-4 pb-5 w-full justify-center"
+      >
+        <input
+          type="text"
+          className="bg-black text-white rounded-lg p-2 w-4/5"
+          value={texto}
+          onChange={(e) => setTexto(e.target.value)}
         />
-      </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="sumbit"
+          className="bg-shamrock-500 text-white rounded-lg px-3 py-2"
         >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+          Enviar
+        </button>
+        <button
+          type="button"
+          onClick={(e) => generarRutina(e) }
+          className="bg-teal-500 text-white rounded-lg px-3 py-2"
         >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          Generar rutina
+        </button>
+      </form>
+    
+    </div>
+    <Rutina rutina={rutinaPlantilla.current} />
+    </>
   )
 }

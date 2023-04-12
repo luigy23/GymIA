@@ -2,26 +2,59 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+
+
+
+
+
+
+
+
+
+.contenedorPrincipal{
+  @apply flex flex-col items-center justify-center h-screen ;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+body{
+  @apply bg-zinc-900;
+}
+h1{
+  @apply text-white text-4xl font-bold;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.noScrollBar::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+.tarjeta {
+  @apply flex  flex-col items-center justify-center rounded-lg bg-slate-100 p-5 shadow-lg ;
+}
+
+.titulo {
+  @apply text-xl font-bold;
+}
+
+.lista {
+  @apply w-full text-left text-base text-slate-700 flex-col flex;
+}
+
+.ejercicio {
+  @apply flex flex-wrap items-center justify-center rounded-xl bg-green-300 p-2;
+}
+
+.titulo-ejercicio {
+  @apply font-bold;
+}
+
+.detalles-ejercicio {
+  @apply flex w-full h-full flex-wrap gap-3 text-slate-500;
+}
+
+.etiqueta {
+  @apply font-semibold;
 }
