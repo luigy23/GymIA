@@ -8,7 +8,7 @@ const openai = new OpenAIApi(configuration);
 
 //creacmos una funcion para exportar
 export const completar = async (mensajesActualizados) => {
-        alert(process.env.NEXT_PUBLIC_OPEN_IA_APIKEY)
+        
         const completion = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: mensajesActualizados,
