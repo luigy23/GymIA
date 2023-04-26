@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-import React, { useEffect, useRef, useState } from "react";
-import { completar } from "../Api/openia"
+import React, { useEffect, useRef, useState, useContext } from "react";
+import { completar } from "../Services/openia"
 import Rutina from "../Componentes/Rutina";
 import Spinner from "../Componentes/Spinner";
-
+import { extraerjson } from '../Services/extraerjson';
+import { UserContext } from '@/Context/UserContext';
 
 
 const inter = Inter({ subsets: ['latin'] }) 
@@ -13,6 +14,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
+  const { user } = useContext(UserContext);
   const cargando = useRef(false);
   const [texto, setTexto] = useState("");
   const [mensajes, setMensajes] = useState([
@@ -22,17 +24,15 @@ export default function Home() {
       según la información del usuario, siempre harás la preguntas necesarias para poder dar la rutina perfecta para cada usuario. además también eres un nutriólogo, eres breve y conciso en tus respuestas. Tu objetivo es crear una rutina personalizada
        en base a la información que el usuario te da. Además de usar tus conocimientos para dar consejos y recomendaciones.
        tienes que buscar lo mejor para el usuario en cuanto a salud y decirle al usuario cuando no está haciendo bien las cosas.
+       Habilidades:
+      Crear una rutina: Cuando vayas a crear una rutina personalizada deberás darla en el siguiente formato, sin comentarios o cosas extras solo tendrás que responder con esto: /*JSON{"objetivo":"string","rutina":[{"dia":"string","ejercicios":[{"nombre":"string","series":"number","repeticiones":"string","peso":"string"}]}]} */
+      <Comentario Extra>
+      Primera indicación:
+                actúa como un excelente entrenador personal recuerda siempre hacer la preguntas correctas para tener información y poder generar las mejores rutinas, recuerda que eres breve conciso y carismático, lo primero que harás es saludar:
       `,
     },
-    {
-      role: "user",
-      content: `Habilidades:
-Crear una rutina: Cuando vayas a crear una rutina personalizada deberás darla en el siguiente formato, sin comentarios o cosas extras solo tendrás que responder con esto: /*JSON{"objetivo":"string","rutina":[{"dia":"string","ejercicios":[{"nombre":"string","series":"number","repeticiones":"string","peso":"string"}]}]} */
-<Comentario Extra>
-Primera indicación:
-actúa como un excelente entrenador personal recuerda siempre hacer la preguntas correctas para tener información y poder generar las mejores rutinas, recuerda que eres breve conciso y carismático, lo primero que harás es saludar:`,
-    },
-    {role: "system", content: "Hola, soy jimbo, tu entrenador personal, ¿cómo te llamas? ¿en que puedo ayudarte? cuentame tus objetivos"},
+    {role: "system", content: `esta la información del usuario: ${JSON.stringify(user)}` },
+
   ]);
   const formulario = useRef(null);
   const rutinaPlantilla = useRef({
@@ -59,9 +59,10 @@ actúa como un excelente entrenador personal recuerda siempre hacer la preguntas
   }, [])
   
   const handleSubmit = (e) => {
+    formulario.current.reset();
     e.preventDefault();
     enviarMensaje();
-    formulario.current.reset();
+   
   };
 
   const enviarMensaje = async (textoMsj=texto) => {
@@ -88,17 +89,6 @@ actúa como un excelente entrenador personal recuerda siempre hacer la preguntas
    setTexto("")
   };
 
-  const extraerjson = (jsonMensaje) => {
-    const jsonString = jsonMensaje;
-    const jsonObject = JSON.parse(
-      jsonString.substring(
-        jsonString.indexOf("{"),
-        jsonString.lastIndexOf("}") + 1
-      )
-    );
-    console.log(jsonObject);
-    return jsonObject;
-  };
 
   const generarRutina = async () => {
     const mensajeGenerar = `generame la rutina`;
@@ -118,7 +108,7 @@ actúa como un excelente entrenador personal recuerda siempre hacer la preguntas
       <div className="bg-black text-white rounded-lg text-center w-full overflow-y-scroll p-10">
         {mensajes.map((mensaje, index) => {
           //no mostrar el primer mensaje del sistema, que es la descripción del chatbot
-          if (index < 2) {
+          if (index < 1) {
             return null;
           }
 
@@ -144,7 +134,7 @@ actúa como un excelente entrenador personal recuerda siempre hacer la preguntas
         <input
           type="text"
           className="bg-black text-white rounded-lg p-2 w-4/5"
-          value={texto}
+
           onChange={(e) => setTexto(e.target.value)}
         />
 

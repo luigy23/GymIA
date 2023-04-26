@@ -1,0 +1,21 @@
+
+
+
+.menuNav {
+    @apply
+    bg-slate-950
+    flex
+    gap-4 
+    p-4
+    items-center
+    justify-center
+    font-semibold
+    ;
+}
+
+.menuNav ul {
+    @apply
+    flex
+    gap-4
+    ;
+}

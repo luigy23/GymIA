@@ -1,0 +1,138 @@
+
+.formulario{
+    @apply 
+    bg-smoke-900
+    rounded-2xl
+    shadow-lg
+    p-4
+    flex flex-col
+    
+    gap-6
+    items-center justify-center
+  
+    ;
+}
+
+/* estilos para inputs de texto y numeros: */
+.formulario input[type="number"], .formulario input[type="text"]{
+    @apply 
+    bg-transparent
+    text-slate-300
+    border-b-2
+    border-slate-300
+    text-center
+    
+    w-40
+    ;
+}
+
+.objetivos{
+    @apply 
+    flex 
+    gap-2
+    ;
+}
+.objetivo{
+    @apply 
+    bg-fercho-50
+    text-slate-950
+    py-1 px-2
+    rounded-2xl
+    font-semibold
+    cursor-pointer
+    transition-all
+    ;
+}
+.objetivos label input[type="checkbox"]{
+    display: none;
+}
+.objetivoActivo{
+    @apply 
+    bg-fercho-300
+    ;
+}
+
+
+.formulario label{
+    @apply 
+    
+    font-semibold
+    gap-2
+    flex flex-col
+    ;
+}
+
+.opcion_nivel{
+
+    @apply 
+    bg-fercho-50
+    text-slate-950
+    py-1 px-2
+    rounded-2xl
+    font-semibold
+    cursor-pointer
+    transition-all
+
+    
+    ;
+}
+.opcion_nivel input{
+    display: none;
+}
+.opcion_nivel:hover{
+    @apply 
+    bg-fercho-400
+    text-smoke-900
+    shadow-lg
+    ;
+}
+
+.opcionActiva{
+    @apply 
+    bg-fercho-300
+    text-smoke-900
+    shadow-lg
+    ;
+}
+
+.btnSiguiente{
+    @apply 
+    bg-fercho-300
+    text-smoke-900
+    shadow-lg
+    py-1 px-2
+   
+    rounded-2xl
+    font-semibold
+    cursor-pointer
+    transition-all
+    hover:bg-fercho-400
+    ;
+}
+.btnAtras {
+    @apply 
+    bg-scooter-500
+    text-smoke-900
+    shadow-lg
+    py-1 px-2
+    rounded-2xl
+    font-semibold
+    cursor-pointer
+    transition-all
+    hover:bg-scooter-600
+    ;
+}
+
+.btnEnviar{
+    @apply 
+    bg-fercho-300
+    text-smoke-900
+    shadow-lg
+    py-1 px-2
+    rounded-2xl
+    font-semibold
+    cursor-pointer
+    transition-all
+    hover:bg-fercho-400
+    ;
+}
