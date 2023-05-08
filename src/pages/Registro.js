@@ -5,7 +5,7 @@ import estilo from "../styles/formulario.module.css";
 import { UserContext } from "@/Context/UserContext";
 import NavMenu from "@/Componentes/NavMenu";
 import React from "react";
-
+import axios from "axios";
 const Registro = () => {
   const [form, setForm] = useState({
     nombre: "",
@@ -44,8 +44,13 @@ const Registro = () => {
 
     console.log(form);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    const respuesta = await axios.post("/api/usuario", form);
+    console.log(respuesta);
+    
+
+
     updateUser(form);
   };
   const infoGym = (

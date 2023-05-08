@@ -1,6 +1,6 @@
 //funcion para extraer de un texto un json
-
-export const extraerjson = (jsonMensaje) => {
+import axios from "axios";
+export const extraerjson =  (jsonMensaje) => {
   const jsonString = jsonMensaje;
   const jsonObject = JSON.parse(
     jsonString.substring(
@@ -9,5 +9,9 @@ export const extraerjson = (jsonMensaje) => {
     )
   );
   console.log(jsonObject);
+
+  axios.post("/api/rutina", jsonObject).then((res) => {
+    console.log(res);
+  });
   return jsonObject;
 };

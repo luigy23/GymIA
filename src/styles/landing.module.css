@@ -1,0 +1,131 @@
+
+.forma{
+
+    display: flex;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(76, 255, 72, 0.2346) 0%, rgba(76, 255, 72, 0) 100%);
+    position: absolute;
+    z-index: 1;
+    @apply w-96 h-96 -top-20 -left-32;
+}
+
+.forma2{
+    display: flex;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(76, 255, 72, 0.2346) 0%, rgba(76, 255, 72, 0) 100%);
+    position: absolute;
+    width: 40rem;
+    height: 40rem;
+    z-index: 1;
+    @apply  -bottom-32 -right-64 ;
+}
+
+/* contenedor para que el contenido solo ocupe el 80% del ancho:*/
+.contenedor {
+    width: 80%;
+    z-index: 20;
+    @apply flex gap-1 flex-col md:flex-row;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.customBtn {
+    color: #000;
+    width: 130px;
+    height: 40px;
+    padding: 10px 25px;
+    @apply font-bold hover:text-white;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+  }
+
+
+
+
+
+
+
+
+
+
+.btnNeon {
+    background: #C4FF46;
+    line-height: 40px;
+    padding: 0;
+    border: none;
+    box-shadow: 0 0 5px #C4FF46;
+  }
+  .btnNeon span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btnNeon:hover{
+    background: transparent;
+  }
+  .btnNeon:before,
+  .btnNeon:after {
+    position: absolute;
+    content: "";
+    height: 0%;
+    width: 2px;
+    background: #C4FF46;
+   box-shadow: 0 0 5px #C4FF46;
+  }
+  .btnNeon:before {
+    right: 0;
+    top: 0;
+    transition: all 500ms ease;
+  }
+  .btnNeon:after {
+    left: 0;
+    bottom: 0;
+    transition: all 500ms ease;
+  }
+  .btnNeon:hover:before {
+    transition: all 500ms ease;
+    height: 100%;
+  }
+  .btnNeon:hover:after {
+    transition: all 500ms ease;
+    height: 100%;
+  }
+  .btnNeon span:before,
+  .btnNeon span:after {
+    position: absolute;
+    content: "";
+    background: #C4FF46;
+    box-shadow: 0 0 5px #C4FF46;
+  }
+  .btnNeon span:before {
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 2px;
+    transition: all 500ms ease;
+  }
+  .btnNeon span:after {
+    right: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    transition: all 500ms ease;
+  }
+  .btnNeon span:hover:before {
+    width: 100%;
+  }
+  .btnNeon span:hover:after {
+    width: 100%;
+  }
+  
