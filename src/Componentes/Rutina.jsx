@@ -5,7 +5,7 @@ function Rutina({ rutina }) {
       <h2 className="text-2xl font-bold mb-4 text-slate-200">
         <span className="text-scooter-400">Objetivo:</span> {rutina.objetivo}
       </h2>
-    <div className="grid grid-cols-4 gap-4 items-start">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start ">
       {rutina.rutina.map((dia) => (
         <div key={dia.dia} className="tarjeta">
           <h2 className="titulo">{dia.dia}</h2>

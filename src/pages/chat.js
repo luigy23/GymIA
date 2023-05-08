@@ -31,7 +31,7 @@ export default function Home() {
                 actúa como un excelente entrenador personal recuerda siempre hacer la preguntas correctas para tener información y poder generar las mejores rutinas, recuerda que eres breve conciso y carismático, lo primero que harás es saludar:
       `,
     },
-    {role: "system", content: `esta la información del usuario: ${JSON.stringify(user)}` },
+    {role: "user", content: `esta es mi información en formato JSON: ${JSON.stringify(user)}, usala para conocerme y hacer mi experiencia de manera personalizada.` },
 
   ]);
   const formulario = useRef(null);

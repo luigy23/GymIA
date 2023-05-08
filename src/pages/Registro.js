@@ -295,11 +295,10 @@ const Registro = () => {
 
   return (
     <>
-    <div className="w-full items-center justify-center flex flex-col text-center gap-3 pt-5 ">
-      <div className="max-w-2xl">
-        <h1 className="font-semibold text-xl">Cuentanos de ti </h1>
+    <div className="w-full items-center justify-start h-screen  flex flex-col text-center gap-3 pt-9 gradiente">
+      <div className="max-w-2xl gap-3 flex flex-col p-2">
+        <h1 className="font-semibold text-2xl">Cuentanos de ti </h1>
         <p className="text-slate-300">
-          {step}
           
           Para poder generar tu rutina personalizada, necesitamos que nos
           cuentes un poco sobre ti

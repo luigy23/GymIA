@@ -38,7 +38,7 @@ h1{
 }
 
 .titulo {
-  @apply text-xl font-bold;
+  @apply text-xl font-bold text-scooter-900 ;
 }
 
 .lista {
@@ -59,4 +59,9 @@ h1{
 
 .etiqueta {
   @apply font-semibold;
+}
+
+.gradiente{
+  background: rgb(0,7,1);
+  background: radial-gradient(circle, rgba(0,7,1,1) 0%, rgba(0,0,0,1) 51%, rgba(0,47,20,1) 100%);
 }

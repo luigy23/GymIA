@@ -20,3 +20,10 @@
     gap-4
     ;
 }
+
+/* aplicamos un efecto hover a los items del menú */
+.menuNav ul li:hover{
+    @apply
+    text-fercho-200 ease-in-out transition-colors
+    ;
+}
