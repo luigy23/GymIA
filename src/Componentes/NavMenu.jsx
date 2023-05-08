@@ -11,6 +11,7 @@ const NavMenu = () => {
             <ul>
                 <li> <Link href="/Registro">Usuario</Link></li>
                 <li> <Link href="/">Home</Link></li>
+                <li> <Link href="/chat">Chat</Link></li>
             </ul>
 
         </nav>
