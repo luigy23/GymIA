@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-
+import axios from 'axios';
 import React, { useEffect, useRef, useState, useContext } from "react";
 import { completar } from "../Services/openia"
 import Rutina from "../Componentes/Rutina";
@@ -13,8 +13,8 @@ const inter = Inter({ subsets: ['latin'] })
 //importar est
 
 export default function Home() {
-
-  const { user } = useContext(UserContext);
+  
+  const [user, setUser] = useState(null);
   const cargando = useRef(false);
   const [texto, setTexto] = useState("");
   const [mensajes, setMensajes] = useState([
@@ -30,8 +30,8 @@ export default function Home() {
       Primera indicación:
                 actúa como un excelente entrenador personal recuerda siempre hacer la preguntas correctas para tener información y poder generar las mejores rutinas, recuerda que eres breve conciso y carismático, lo primero que harás es saludar:
       `,
-    },
-    {role: "user", content: `esta es mi información en formato JSON: ${JSON.stringify(user)}, usala para conocerme y hacer mi experiencia de manera personalizada.` },
+    }
+   
 
   ]);
   const formulario = useRef(null);
@@ -52,9 +52,20 @@ export default function Home() {
     ],
   });
 
-  useEffect(() => {
+  const traerUsuario = async () => {
+    const respuesta = await axios.get("/api/usuario");
+    setUser(respuesta.data);
+    setMensajes((mensajesAnteriores) => [
+      ...mensajesAnteriores,
+      { role: "user", content: `esta es mi información en formato JSON: ${JSON.stringify(respuesta.data)}, usala para conocerme y hacer mi experiencia de manera personalizada.` },
+    ]);
 
-  
+
+    console.log(respuesta.data);
+  };
+
+  useEffect(() => {
+    traerUsuario();
 
   }, [])
   
