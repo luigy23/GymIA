@@ -27,6 +27,8 @@ export const UserProvider = ({ children }) => {
       objetivo: objetivo || user.objetivo,
       otros: otros || user.otros,
     });
+    console.log("user actualizado");
+
   };
 
   const state = {
