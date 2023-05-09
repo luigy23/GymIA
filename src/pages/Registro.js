@@ -45,12 +45,14 @@ const Registro = () => {
     console.log(form);
   };
   const handleSubmit = async(e) => {
+    console.log("enviando");
     e.preventDefault();
+    try {
     const respuesta = await axios.post("/api/usuario", form);
     console.log(respuesta);
-    
-
-
+    } catch (error) {
+      console.log(error);
+    }
     updateUser(form);
   };
   const infoGym = (
