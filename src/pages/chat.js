@@ -14,7 +14,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   
-  const [user, setUser] = useState(null);
+  const { user } = useContext(UserContext);
   const cargando = useRef(false);
   const [texto, setTexto] = useState("");
   const [mensajes, setMensajes] = useState([
@@ -53,15 +53,27 @@ export default function Home() {
   });
 
   const traerUsuario = async () => {
+    try {
     const respuesta = await axios.get("/api/usuario");
-    setUser(respuesta.data);
+    if (respuesta.data == "") {
+      throw new Error("no hay usuario");
+    
+    }
     setMensajes((mensajesAnteriores) => [
       ...mensajesAnteriores,
       { role: "user", content: `esta es mi información en formato JSON: ${JSON.stringify(respuesta.data)}, usala para conocerme y hacer mi experiencia de manera personalizada.` },
     ]);
+    } catch (error) {
+      console.log(error);
+      setMensajes((mensajesAnteriores) => [
+        ...mensajesAnteriores,
+        { role: "user", content: `esta es mi información en formato JSON: ${JSON.stringify(user)}, usala para conocerme y hacer mi experiencia de manera personalizada.` },
+      ]);
+    }
 
 
-    console.log(respuesta.data);
+
+
   };
 
   useEffect(() => {
