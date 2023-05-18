@@ -14,7 +14,7 @@ const Registro = () => {
     peso: "",
     genero: "",
     nivel: "",
-    gym: "",
+    lugarEntrenamiento: "",
     objetivo: [],
     otros: "",
   });
@@ -97,7 +97,7 @@ const Registro = () => {
         <div className="flex gap-2">
           <label
             className={
-              form.gym == "casa"
+              form.lugarEntrenamiento == "casa"
                 ? `${estilo.opcion_nivel} ${estilo.opcionActiva}`
                 : estilo.opcion_nivel
             }
@@ -105,14 +105,14 @@ const Registro = () => {
             Casa
             <input
               type="radio"
-              name="gym"
+              name="lugarEntrenamiento"
               value="casa"
               onChange={handleChange}
             />
           </label>
           <label
             className={
-              form.gym == "gym"
+              form.lugarEntrenamiento == "gym"
                 ? `${estilo.opcion_nivel} ${estilo.opcionActiva}`
                 : estilo.opcion_nivel
             }
@@ -120,7 +120,7 @@ const Registro = () => {
             Gym
             <input
               type="radio"
-              name="gym"
+              name="lugarEntrenamiento"
               value="gym"
               onChange={handleChange}
             />

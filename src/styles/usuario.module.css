@@ -1,0 +1,13 @@
+
+
+
+.tarjeta{
+    @apply w-56
+    content-center 
+    flex flex-col
+    justify-center items-center
+     text-center text-smoke-800  text-lg h-28 rounded-lg shadow-xl
+     cursor-pointer
+    hover:w-60 transition-all ease-in-out hover:bg-fercho-300
+     ;
+}

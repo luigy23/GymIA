@@ -2,25 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+/* una vez importada la fuente, la usaremos en el body */
 
 
 
+html, body{
+  
 
+  padding: 0;
+  margin: 0;
+  @apply bg-zinc-900 text-slate-50;
+  height: 100%;
+  
 
-
-
-
+}
 
 .contenedorPrincipal{
-  @apply flex flex-col items-center justify-center h-screen ;
+  @apply flex flex-col items-center  h-screen ;
 }
 
-body{
-  font-family: 'Poppins', sans-serif;
-  @apply bg-zinc-900 text-slate-50 ;
 
-}
 h1{
   @apply text-white text-4xl font-bold;
 }
@@ -50,7 +51,7 @@ h1{
 }
 
 .titulo-ejercicio {
-  @apply font-bold;
+  @apply font-bold hover:text-fercho-950 transition-all ease-in-out cursor-pointer;
 }
 
 .detalles-ejercicio {

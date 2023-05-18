@@ -22,6 +22,9 @@ const rutina = async (req, res) => {
 
       // envia el archivo json
       res.status(200).json(JSON.parse(jsonFile));
+      return;
+
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error al leer archivo" });

@@ -1,0 +1,94 @@
+
+
+
+.headerChat{
+    @apply h-16 bg-shamrock-900 flex items-center justify-center w-full;
+}
+
+.mensaje {
+    overflow-wrap: break-word;
+    @apply  rounded-xl px-2 py-2 text-white max-w-2xl w-fit text-start whitespace-pre-wrap ;
+
+}
+
+.mensajePropio {
+  
+    @apply w-full flex flex-row-reverse
+}
+
+
+.mensajePropio .mensaje{
+ 
+    @apply rounded-br-none bg-fercho-900 
+     
+    ;
+}
+
+.mensajeBot {
+   @apply w-full flex flex-row
+}
+
+.mensajeBot .mensaje {
+    @apply rounded-bl-none bg-scooter-900;
+}
+
+
+
+
+
+.mensajesContainer {
+    @apply text-slate-900
+    flex flex-col
+    bg-smoke-800
+    h-80 w-full
+    p-4 gap-3
+    overflow-y-scroll
+
+
+    
+    ;
+}
+
+.divChat{
+    @apply  w-4/5  ;
+}
+.Main{
+    @apply w-full min-h-screen flex flex-col items-center justify-center ;
+}
+
+
+.inputContainer {
+    @apply flex flex-row items-center justify-center gap-2;
+}
+
+.input{
+    @apply w-full  bg-transparent  text-slate-50 px-2 py-1 
+    border-b
+    focus:outline-none focus:ring-2 focus:ring-scooter-900 
+    ;
+}
+/* Estilos para que el input se expanda */
+.inputContainer {
+    @apply w-full self-end my-2 px-1;
+}
+.boton{
+    @apply rounded-xl bg-scooter-900 text-slate-50 px-2 py-1;
+}
+
+
+/* diseño para telefonos: */
+@media (max-width: 640px) {
+    .mensajesContainer {
+        height: 80%; 
+    }
+    .divChat{
+        @apply w-full  overflow-hidden   h-full  pb-5;
+      
+    }
+    .Main{
+        @apply w-full h-screen justify-start block  ;
+    }
+    .inputContainer {
+        @apply w-full self-end my-2 px-1;
+    }
+}
