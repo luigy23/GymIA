@@ -16,6 +16,7 @@ const [rutina, setRutina] = useState(null)
 
 const traerRutina = async () => {
   try {
+    setRutina(Rutina);
     const respuesta = await axios.get("http://localhost:3000/api/rutina");
     console.log("no hay rutina", respuesta)
     if (respuesta.data==""){
@@ -29,7 +30,7 @@ const traerRutina = async () => {
     }
   catch (error) {
     console.log(error);
-    setRutina(Rutina);
+    
   }
 }
     
