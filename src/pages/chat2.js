@@ -1,35 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import estilo from "../styles/chat.module.css";
+import { getUsuario, crearUsuario } from "@/Services/usuario";
 
-const chat2 = () => {
+const Chat2 = () => {
+
+  const [usuario, setUsuario] = useState("");
+
+  const clickboton = async() => {
+    const respuesta = await getUsuario(3);
+    setUsuario(respuesta.data);
+    console.log(respuesta);
+  }
+
+  const clickboton2 = async() => {
+    const respuesta = await crearUsuario();
+    console.log(respuesta);
+  }
+
+  
+
   return (
     <div className={estilo.Main}>
-      <div className={estilo.divChat}>
-        <div className={estilo.headerChat}>
-          <h1 className="text-white text-2xl">Chat</h1>
-        </div>
-        <div className={estilo.mensajesContainer}>
-          <div className={estilo.mensajeBot}>
-            <div className={estilo.mensaje}>
-                hola
-            </div>
-          </div>
-          <div className={estilo.mensajePropio}>
-            <div className={estilo.mensaje}>
-                hola holahol
-                
-            </div>
-          </div>
-            {/*  */}
-            
-        </div>
-        <div className={estilo.inputContainer}>
-            <input type="text" className={estilo.input} placeholder="Escribe un mensaje"/>
-            <button className={estilo.boton}>Enviar</button>
-        </div>
-      </div>
+      <h1>{usuario.nombreUsuario}</h1>
+      <p>{usuario.alturaCm}</p>
+
+      <button onClick={clickboton}
+      >traer usuarios</button>
+      <button onClick={clickboton2}>Crear usuario</button>
     </div>
   );
 };
 
-export default chat2;
+export default Chat2;

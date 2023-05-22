@@ -3,6 +3,12 @@ import React, { createContext, useState } from "react";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  // añadiendo el estado de la rutina:
+  const [Rutina, setRutina] = useState(null);
+  const updateRutina = (rutina) => {
+    setRutina(rutina);
+  };
+
   const [user, setUser] = useState({
     nombre: "",
     altura: "",
@@ -34,6 +40,8 @@ export const UserProvider = ({ children }) => {
   const state = {
     user,
     updateUser,
+    Rutina,
+    updateRutina,
   };
 
   return <UserContext.Provider value={state}>{children}</UserContext.Provider>;

@@ -14,7 +14,7 @@ import estilo from "../styles/chat.module.css";
 //importar est
 
 export default function Home() {
-  const { user } = useContext(UserContext);
+  const { user, updateRutina } = useContext(UserContext);
   const cargando = useRef(false);
   const [texto, setTexto] = useState("");
   const [mensajes, setMensajes] = useState([
@@ -106,6 +106,7 @@ export default function Home() {
     if (respuesta.includes("{")) {
       console.log("hay json");
       rutinaPlantilla.current = extraerjson(respuesta);
+      updateRutina(rutinaPlantilla.current);
       setMensajes((mensajesAnteriores) => [
         ...mensajesAnteriores,
         { role: "system", content: extraerTexto(respuesta) },

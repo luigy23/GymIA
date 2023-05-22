@@ -17,6 +17,8 @@ const Registro = () => {
     lugarEntrenamiento: "",
     objetivo: [],
     otros: "",
+    usuario: "",
+    password: "",
   });
   const { updateUser, user } = useContext(UserContext);
   const [step, setStep] = useState(0);
@@ -290,7 +292,34 @@ const Registro = () => {
       </label>
     </>
   );
-  const steps = [infoPersonal, infoObjetivo, infoGym];
+  const infoCredenciales = (
+    <>
+      <label >
+        Correo:
+        <input
+          
+          type="email"
+          name="correo"
+          value={form.correo}
+          placeholder=""
+          onChange={handleChange}
+        />
+      </label>
+      <label>
+        Contraseña:
+        <input
+          type="password"
+          name="contraseña"
+          value={form.contraseña}
+          onChange={handleChange}
+        />
+      </label>
+    </>
+  );
+
+
+
+  const steps = [infoCredenciales, infoPersonal, infoObjetivo, infoGym];
   //usando el contexto del usuario
 
 
@@ -321,7 +350,7 @@ const Registro = () => {
             Atras
           </button>
 
-          {step == 2 ? (
+          {step == 3 ? (
             <>
               <button className={estilo.btnEnviar} type="submit">
                 Guardar

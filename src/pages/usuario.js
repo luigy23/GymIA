@@ -35,7 +35,7 @@ const usuario = () => {
         <Link href="/chat">
         <div className={`${estilos.tarjeta} bg-scooter-200`}>
           <Coach className="w-10 h-10 "/>
-          <h3 className="font-semibold ">Hablar con el Entrenador</h3>
+          <h3 className="font-semibold whitespace-nowrap ">Hablar con<br/> el Entrenador</h3>
 
         </div>
         </Link>
