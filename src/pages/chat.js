@@ -105,8 +105,9 @@ export default function Home() {
     cargando.current = false;
     if (respuesta.includes("{")) {
       console.log("hay json");
-      rutinaPlantilla.current = extraerjson(respuesta);
-      updateRutina(rutinaPlantilla.current);
+      const rutina = extraerjson(respuesta);
+      rutinaPlantilla.current = rutina;
+      updateRutina(rutina);
       setMensajes((mensajesAnteriores) => [
         ...mensajesAnteriores,
         { role: "system", content: extraerTexto(respuesta) },
