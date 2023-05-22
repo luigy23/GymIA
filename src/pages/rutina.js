@@ -19,8 +19,9 @@ const traerRutina = async () => {
     const respuesta = await axios.get("http://localhost:3000/api/rutina");
     console.log(respuesta);
     if (respuesta.data==""){
-      throw new Error("no hay usuario");
       alert("no hay rutina")
+      throw new Error("no hay usuario");
+      
     }
     setRutina(respuesta.data);
   
