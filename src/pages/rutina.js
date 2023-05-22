@@ -20,6 +20,7 @@ const traerRutina = async () => {
     console.log(respuesta);
     if (!respuesta.data){
       throw new Error("no hay usuario");
+      alert("no hay rutina")
     }
     setRutina(respuesta.data);
   
